@@ -1,6 +1,7 @@
 import { AppProps } from "next/app";
 import React,{useState} from "react";
 import { createTheme, MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 // Use colorScheme prop directly on MantineProvider instead
 export default function App({ Component, pageProps }: AppProps) {
@@ -11,8 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <MantineProvider defaultColorScheme="dark" theme={{}}>
+    <MantineProvider defaultColorScheme="dark">
+            <Notifications position="top-right" zIndex={2000} />
       <Component {...pageProps} toggleColorScheme={toggleColorScheme}/>
+      
     </MantineProvider>
   );
 }
