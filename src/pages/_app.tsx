@@ -2,6 +2,9 @@ import { AppProps } from "next/app";
 import React,{useState} from "react";
 import { createTheme, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
+import '@/styles/globals.css'
 
 // Use colorScheme prop directly on MantineProvider instead
 export default function App({ Component, pageProps }: AppProps) {
