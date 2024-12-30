@@ -5,6 +5,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { prompt, history, options = {} } = await req.body
+
+  const data = {
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content: "you are ai assitant",
+      },
+      ...history,
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    ...options,
+  };
+
   const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY
 
 
@@ -26,8 +44,9 @@ export default async function handler(
       })
     });
 
-    const data = await response.json();
-    res.status(200).json({ ...data.choices[0].message });
+    const json = await response.json();
+
+    res.status(200).json({ ...json.choices[0].message });
   } catch (error) {
     console.error('OpenAI API error:', error);
     res.status(500).json({ error: 'Failed to fetch from OpenAI' });
